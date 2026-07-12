@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>श्री गणेश — Tributo a Ganesha</title>
+<meta name="description" content="Un tributo a Sri Ganesha: el removedor de obstáculos, señor de los comienzos. Mantras, simbolismo y devoción.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕉️</text></svg>">
+<style>
+  :root{
+    --night:#140b26;
+    --night2:#1f1038;
+    --saffron:#ff9933;
+    --marigold:#ffb347;
+    --gold:#ffd700;
+    --rose:#ff5e78;
+    --cream:#fff3e0;
+    --ink:#f5e9d6;
+    --glow:rgba(255,183,71,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:Georgia,'Times New Roman',serif;
+    background:radial-gradient(ellipse at 50% -20%, var(--night2) 0%, var(--night) 60%);
+    color:var(--ink);
+    overflow-x:hidden;
+    line-height:1.7;
+  }
+  ::selection{background:var(--saffron);color:var(--night)}
+
+  /* ------- estrellas / partículas ------- */
+  #sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+  /* ------- capa de pétalos ------- */
+  .petal{
+    position:fixed;top:-4vh;z-index:2;pointer-events:none;
+    font-size:1.1rem;opacity:.8;
+    animation:fall linear forwards;
+  }
+  @keyframes fall{
+    0%{transform:translateY(-5vh) rotate(0deg)}
+    100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+  }
+
+  main{position:relative;z-index:3}
+  section{max-width:960px;margin:0 auto;padding:6rem 1.5rem}
+
+  /* ------- HERO ------- */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:3rem 1rem;
+  }
+  .om{
+    font-size:2.2rem;color:var(--gold);
+    text-shadow:0 0 24px var(--glow);
+    animation:pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.75}50%{opacity:1;text-shadow:0 0 40px var(--gold)}}
+  .hero h1{
+    font-size:clamp(2.4rem,7vw,4.6rem);
+    font-weight:normal;letter-spacing:.06em;
+    color:var(--cream);margin:.6rem 0 .2rem;
+  }
+  .hero .devanagari{
+    font-size:clamp(1.4rem,4vw,2.2rem);
+    color:var(--marigold);letter-spacing:.1em;
+  }
+  .hero .subtitle{
+    max-width:34rem;margin-top:1.2rem;color:#d8c4a8;
+    font-style:italic;font-size:1.05rem;
+  }
+  .scroll-hint{
+    margin-top:3rem;color:var(--marigold);opacity:.7;
+    animation:bob 2.2s ease-in-out infinite;text-decoration:none;font-size:1.6rem;
+  }
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+  /* ------- GANESHA SVG ------- */
+  .ganesha-wrap{margin:2rem auto 0;width:min(340px,78vw);filter:drop-shadow(0 0 30px var(--glow))}
+  .ganesha-wrap svg{width:100%;height:auto;overflow:visible}
+  .draw{
+    fill:none;stroke:var(--marigold);stroke-width:2.6;
+    stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1200;stroke-dashoffset:1200;
+    animation:draw 3.2s ease forwards;
+  }
+  .draw.gold{stroke:var(--gold)}
+  .draw.rose{stroke:var(--rose)}
+  .d1{animation-delay:.2s}.d2{animation-delay:.7s}.d3{animation-delay:1.2s}
+  .d4{animation-delay:1.7s}.d5{animation-delay:2.2s}.d6{animation-delay:2.6s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .tilak{fill:var(--rose);opacity:0;animation:appear 1s ease 3.2s forwards}
+  .eye{fill:var(--gold);opacity:0;animation:appear 1s ease 3s forwards}
+  @keyframes appear{to{opacity:1}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .ganesha-wrap{animation:float 7s ease-in-out infinite}
+
+  /* ------- headings ------- */
+  h2{
+    text-align:center;font-weight:normal;
+    font-size:clamp(1.7rem,4.5vw,2.4rem);color:var(--marigold);
+    margin-bottom:.4rem;letter-spacing:.05em;
+  }
+  .rule{
+    width:120px;height:1px;margin:1rem auto 3rem;border:none;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .rule::after{content:''}
+  .section-note{text-align:center;color:#c9b391;font-style:italic;margin-bottom:2.5rem}
+
+  /* ------- reveal on scroll ------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ------- simbolismo ------- */
+  .symbols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
+  .card{
+    background:linear-gradient(160deg,rgba(255,153,51,.08),rgba(255,94,120,.05));
+    border:1px solid rgba(255,183,71,.25);
+    border-radius:14px;padding:1.6rem;
+    transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:var(--gold);
+    box-shadow:0 12px 40px rgba(255,153,51,.15);
+  }
+  .card .icon{font-size:1.9rem;display:block;margin-bottom:.6rem}
+  .card h3{color:var(--gold);font-weight:normal;font-size:1.15rem;margin-bottom:.5rem}
+  .card p{font-size:.95rem;color:#e3d2b8}
+
+  /* ------- mantras ------- */
+  .mantra{
+    background:rgba(255,243,224,.04);
+    border-left:3px solid var(--saffron);
+    border-radius:0 14px 14px 0;
+    padding:1.8rem 1.8rem 1.5rem;margin-bottom:1.8rem;
+  }
+  .mantra .sanskrit{
+    font-size:clamp(1.15rem,3vw,1.5rem);color:var(--gold);
+    line-height:1.9;margin-bottom:.8rem;
+  }
+  .mantra .translit{color:var(--marigold);font-style:italic;margin-bottom:.6rem;font-size:.98rem}
+  .mantra .meaning{color:#d8c4a8;font-size:.95rem}
+
+  /* ------- 8 nombres ------- */
+  .names{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+  .name{
+    text-align:center;padding:1.3rem .8rem;border-radius:12px;
+    border:1px solid rgba(255,183,71,.2);
+    background:rgba(255,153,51,.05);
+    transition:background .3s ease,transform .3s ease;
+  }
+  .name:hover{background:rgba(255,153,51,.13);transform:scale(1.04)}
+  .name b{display:block;color:var(--gold);font-weight:normal;font-size:1.1rem;letter-spacing:.04em}
+  .name span{font-size:.85rem;color:#cbb28e}
+
+  /* ------- diya / ofrenda ------- */
+  .offering{text-align:center}
+  .diya-btn{
+    cursor:pointer;border:1px solid var(--marigold);
+    background:transparent;color:var(--marigold);
+    font-family:inherit;font-size:1rem;letter-spacing:.06em;
+    padding:.85rem 2.2rem;border-radius:999px;
+    transition:all .3s ease;margin-top:1.5rem;
+  }
+  .diya-btn:hover{background:var(--marigold);color:var(--night);box-shadow:0 0 30px var(--glow)}
+  #diyaRow{
+    display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;
+    min-height:3rem;margin-top:2rem;max-width:640px;margin-left:auto;margin-right:auto;
+  }
+  .diya{
+    font-size:1.7rem;
+    animation:flicker 1.6s ease-in-out infinite, rise .8s ease;
+    filter:drop-shadow(0 0 8px var(--gold));
+  }
+  .diya:nth-child(odd){animation-duration:2.1s,.8s}
+  @keyframes flicker{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.75;transform:scale(.96)}}
+  @keyframes rise{from{opacity:0;transform:translateY(14px) scale(.6)}to{opacity:1;transform:translateY(0) scale(1)}}
+  #diyaCount{color:#cbb28e;font-size:.9rem;margin-top:1rem;font-style:italic}
+
+  /* ------- footer ------- */
+  footer{
+    position:relative;z-index:3;text-align:center;
+    padding:3.5rem 1rem 4.5rem;color:#a68f6e;font-size:.9rem;
+    border-top:1px solid rgba(255,183,71,.15);
+  }
+  footer .om-footer{font-size:1.6rem;color:var(--marigold);display:block;margin-bottom:.8rem}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    .draw{stroke-dashoffset:0}
+    .tilak,.eye{opacity:1}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<main>
+  <!-- ═══════════ HERO ═══════════ -->
+  <header class="hero">
+    <div class="om" aria-hidden="true">ॐ</div>
+    <p class="devanagari">श्री गणेशाय नमः</p>
+    <h1>Sri Ganesha</h1>
+    <p class="subtitle">El removedor de obstáculos · Señor de los comienzos ·
+    Patrono de la sabiduría, las artes y las letras</p>
+
+    <div class="ganesha-wrap" role="img" aria-label="Ilustración de Ganesha en arte lineal">
+      <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
+        <!-- aureola -->
+        <circle class="draw gold d1" cx="150" cy="140" r="128"/>
+        <!-- orejas -->
+        <path class="draw d2" d="M78,120 C40,95 38,160 66,178 C80,188 96,182 100,168"/>
+        <path class="draw d2" d="M222,120 C260,95 262,160 234,178 C220,188 204,182 200,168"/>
+        <!-- cabeza -->
+        <path class="draw d1" d="M100,168 C88,120 108,78 150,76 C192,78 212,120 200,168"/>
+        <!-- corona -->
+        <path class="draw gold d3" d="M118,84 L128,58 L142,76 L150,48 L158,76 L172,58 L182,84"/>
+        <!-- trompa -->
+        <path class="draw d3" d="M150,120 C150,150 146,168 132,180 C116,194 112,214 128,224 C142,232 156,224 154,210"/>
+        <!-- colmillo (solo uno: Ekadanta) -->
+        <path class="draw gold d4" d="M168,168 C176,178 178,190 172,198"/>
+        <!-- cuerpo -->
+        <path class="draw d4" d="M108,192 C74,224 70,272 96,292 C130,314 170,314 204,292 C230,272 226,224 192,192"/>
+        <!-- brazo derecho: bendición -->
+        <path class="draw d5" d="M204,230 C226,224 240,206 238,188"/>
+        <!-- brazo izquierdo: modak -->
+        <path class="draw d5" d="M96,230 C76,226 64,212 64,196"/>
+        <path class="draw rose d6" d="M56,182 C50,192 56,200 64,196 C72,200 78,192 72,182 C68,176 60,176 56,182 Z"/>
+        <!-- piernas cruzadas -->
+        <path class="draw d5" d="M110,296 C130,286 170,286 190,296"/>
+        <!-- ojos -->
+        <circle class="eye" cx="132" cy="118" r="3.4"/>
+        <circle class="eye" cx="168" cy="118" r="3.4"/>
+        <!-- tilak -->
+        <path class="tilak" d="M150,92 C147,100 147,108 150,114 C153,108 153,100 150,92 Z"/>
+        <!-- ratón (su vahana) -->
+        <path class="draw gold d6" d="M228,306 C238,296 254,298 258,308 C262,318 252,326 240,322 C234,320 230,314 228,306 Z M258,308 C266,306 272,310 270,316"/>
+      </svg>
+    </div>
+
+    <a class="scroll-hint" href="#simbolismo" aria-label="Desplázate para descubrir">❧</a>
+  </header>
+
+  <!-- ═══════════ SIMBOLISMO ═══════════ -->
+  <section id="simbolismo">
+    <h2 class="reveal">El cuerpo como enseñanza</h2>
+    <hr class="rule">
+    <p class="section-note reveal">Cada rasgo de Ganesha es una lección silenciosa.</p>
+    <div class="symbols">
+      <div class="card reveal"><span class="icon">🐘</span><h3>La gran cabeza</h3>
+        <p>Piensa en grande. La sabiduría comienza cuando la mente se hace más amplia que el problema que enfrenta.</p></div>
+      <div class="card reveal"><span class="icon">👂</span><h3>Las orejas amplias</h3>
+        <p>Escucha más, habla menos. Todo el mundo tiene algo que enseñarte si sabes recibirlo.</p></div>
+      <div class="card reveal"><span class="icon">👁️</span><h3>Los ojos pequeños</h3>
+        <p>Concentración. Mirar el detalle, más allá de la superficie, es el arte de ver de verdad.</p></div>
+      <div class="card reveal"><span class="icon">🌀</span><h3>La trompa</h3>
+        <p>Adaptabilidad: fuerte para arrancar un árbol, delicada para levantar una aguja. Alta eficiencia y suavidad a la vez.</p></div>
+      <div class="card reveal"><span class="icon">🦷</span><h3>Un solo colmillo</h3>
+        <p><em>Ekadanta</em> — retén lo bueno, deja ir lo demás. Con su colmillo roto escribió el Mahabharata sin detenerse.</p></div>
+      <div class="card reveal"><span class="icon">🍬</span><h3>El modak</h3>
+        <p>El dulce en su mano es la recompensa de la práctica: la dicha interior que se descubre en el camino.</p></div>
+      <div class="card reveal"><span class="icon">🐭</span><h3>El ratón</h3>
+        <p>Su vehículo, Mushika: el deseo es pequeño pero puede roerlo todo. Ganesha lo monta — lo domina, no lo destruye.</p></div>
+      <div class="card reveal"><span class="icon">🤚</span><h3>La mano alzada</h3>
+        <p><em>Abhaya mudra</em> — «no temas». La protección de quien camina delante de todos los comienzos.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ MANTRAS ═══════════ -->
+  <section id="mantras">
+    <h2 class="reveal">Mantras</h2>
+    <hr class="rule">
+    <p class="section-note reveal">Sonidos que abren caminos.</p>
+
+    <div class="mantra reveal">
+      <p class="sanskrit">ॐ गं गणपतये नमः</p>
+      <p class="translit">Om Gam Ganapataye Namah</p>
+      <p class="meaning">«Saludo al señor de las multitudes.» El mantra semilla de Ganesha — se recita antes de todo comienzo: un viaje, un trabajo, un nuevo capítulo de la vida.</p>
+    </div>
+
+    <div class="mantra reveal">
+      <p class="sanskrit">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</p>
+      <p class="translit">Vakratunda Mahakaya Suryakoti Samaprabha<br>Nirvighnam Kuru Me Deva Sarva-Karyeshu Sarvada</p>
+      <p class="meaning">«Oh señor de trompa curva y cuerpo inmenso, cuyo esplendor iguala a diez millones de soles: haz que todas mis obras estén siempre libres de obstáculos.»</p>
+    </div>
+
+    <div class="mantra reveal">
+      <p class="sanskrit">ॐ एकदन्ताय विद्महे वक्रतुण्डाय धीमहि ।<br>तन्नो दन्तिः प्रचोदयात् ॥</p>
+      <p class="translit">Om Ekadantaya Vidmahe, Vakratundaya Dhimahi,<br>Tanno Dantih Prachodayat</p>
+      <p class="meaning">El Ganesha Gayatri: «Meditamos en el de un solo colmillo, contemplamos al de la trompa curva. Que él ilumine nuestra mente.»</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ OCHO NOMBRES ═══════════ -->
+  <section id="nombres">
+    <h2 class="reveal">Ashtavinayaka · Ocho nombres</h2>
+    <hr class="rule">
+    <p class="section-note reveal">De sus 108 nombres, ocho formas veneradas.</p>
+    <div class="names">
+      <div class="name reveal"><b>Vinayaka</b><span>El líder supremo</span></div>
+      <div class="name reveal"><b>Vighneshvara</b><span>Señor de los obstáculos</span></div>
+      <div class="name reveal"><b>Ekadanta</b><span>El de un solo colmillo</span></div>
+      <div class="name reveal"><b>Lambodara</b><span>El de vientre generoso</span></div>
+      <div class="name reveal"><b>Gajanana</b><span>Rostro de elefante</span></div>
+      <div class="name reveal"><b>Siddhivinayaka</b><span>Otorgador de logros</span></div>
+      <div class="name reveal"><b>Ganapati</b><span>Señor de las multitudes</span></div>
+      <div class="name reveal"><b>Mangalamurti</b><span>Forma auspiciosa</span></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ OFRENDA ═══════════ -->
+  <section id="ofrenda" class="offering">
+    <h2 class="reveal">Enciende una diya</h2>
+    <hr class="rule">
+    <p class="section-note reveal">En Ganesh Chaturthi, miles de lámparas iluminan su llegada.<br>
+    Deja aquí tu propia luz como ofrenda.</p>
+    <button class="diya-btn reveal" id="lightDiya">🪔 &nbsp;Encender una lámpara</button>
+    <div id="diyaRow" aria-live="polite"></div>
+    <p id="diyaCount"></p>
+  </section>
+</main>
+
+<footer>
+  <span class="om-footer">ॐ</span>
+  <p>गणपति बप्पा मोरया · Ganpati Bappa Morya</p>
+  <p style="margin-top:.5rem;opacity:.7">Hecho con devoción y código abierto · Namaste 🙏</p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- cielo estrellado ---- */
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  var stars = [];
+  function resize(){
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    stars = [];
+    var n = Math.floor(innerWidth * innerHeight / 9000);
+    for(var i=0;i<n;i++){
+      stars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.4 + .3,
+        p: Math.random()*Math.PI*2,
+        s: .5 + Math.random()*1.5
+      });
+    }
+  }
+  resize();
+  addEventListener('resize', resize);
+  function drawStars(t){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<stars.length;i++){
+      var st = stars[i];
+      var a = reduced ? .6 : .3 + .5*Math.abs(Math.sin(t/1000*st.s + st.p));
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,220,160,'+a.toFixed(2)+')';
+      ctx.fill();
+    }
+    if(!reduced) requestAnimationFrame(drawStars);
+  }
+  requestAnimationFrame(drawStars);
+
+  /* ---- pétalos de caléndula ---- */
+  var petals = ['🌼','🌺','✿','❀'];
+  function dropPetal(){
+    if(document.hidden) return;
+    var p = document.createElement('span');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random()*petals.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.fontSize = (0.7 + Math.random()*0.9) + 'rem';
+    p.style.animationDuration = (7 + Math.random()*8) + 's';
+    document.body.appendChild(p);
+    setTimeout(function(){ p.remove(); }, 16000);
+  }
+  if(!reduced){ setInterval(dropPetal, 1800); dropPetal(); }
+
+  /* ---- reveal on scroll ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---- diyas ---- */
+  var row = document.getElementById('diyaRow');
+  var count = document.getElementById('diyaCount');
+  var btn = document.getElementById('lightDiya');
+  var lit = 0;
+  try{ lit = parseInt(localStorage.getItem('diyas') || '0', 10) || 0; }catch(e){}
+  function renderCount(){
+    if(lit > 0){
+      count.textContent = lit === 1
+        ? 'Has encendido 1 lámpara en tus visitas. 🙏'
+        : 'Has encendido ' + lit + ' lámparas en tus visitas. 🙏';
+    }
+  }
+  function addDiya(){
+    if(row.children.length >= 21){ row.removeChild(row.firstChild); }
+    var d = document.createElement('span');
+    d.className = 'diya';
+    d.textContent = '🪔';
+    row.appendChild(d);
+  }
+  for(var i=0;i<Math.min(lit,7);i++) addDiya();
+  renderCount();
+  btn.addEventListener('click', function(){
+    lit++;
+    try{ localStorage.setItem('diyas', String(lit)); }catch(e){}
+    addDiya();
+    renderCount();
+  });
+})();
+</script>
+</body>
+</html>
